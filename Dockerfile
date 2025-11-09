@@ -30,7 +30,10 @@ RUN yum -y install git make cmake gcc gcc-c++ llvm-devel clang-devel && \
 
 FROM base AS builder
 
-RUN yum -y upgrade \
+RUN yum -y install 'dnf-command(config-manager)' \
+ && yum config-manager --enable powertools \
+ && yum -y clean all \
+ && yum -y upgrade \
  && yum -y install \
 # our build dependencies \
         xorg-x11-server-utils \
@@ -81,6 +84,7 @@ RUN yum -y upgrade \
 	@llvm-toolset \
 	gcc-toolset-9 \
 	clang-tools-extra \
+	ninja-build \
 && yum -y clean all --enablerepo='*' \
 # python2 installation for building mesa...
 && wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz \
