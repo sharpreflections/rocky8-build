@@ -12,12 +12,28 @@ ARG qt_prefix=/p
 FROM quay.io/sharpreflections/rocky8-build-base AS base
 
 ###############################################################################
+# Clazy Image
+###############################################################################
+
+FROM base AS build-clazy
+WORKDIR /build/
+RUN yum -y install git make cmake gcc gcc-c++ llvm-devel clang-devel && \
+    git clone https://github.com/KDE/clazy.git --branch 1.15 && \
+    mkdir clazy-build && cd clazy-build && \
+    cmake ../clazy -DUSER_LIBS=-lstdc++fs -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/clazy-1.15 && \
+    make --jobs=$(nproc --all) && make install && \
+    rm -rf /build/*
+
+###############################################################################
 # Builder Image
 ###############################################################################
 
 FROM base AS builder
 
-RUN yum -y upgrade \
+RUN yum -y install 'dnf-command(config-manager)' \
+ && yum config-manager --enable powertools \
+ && yum -y clean all \
+ && yum -y upgrade \
  && yum -y install \
 # our build dependencies \
         xorg-x11-server-utils \
@@ -65,6 +81,10 @@ RUN yum -y upgrade \
 # For Squish
         tigervnc-server \
         nc \
+	@llvm-toolset \
+	gcc-toolset-9 \
+	clang-tools-extra \
+	ninja-build \
 && yum -y clean all --enablerepo='*' \
 # python2 installation for building mesa...
 && wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz \
@@ -89,3 +109,4 @@ RUN mkdir /p
 
 COPY --from=quay.io/sharpreflections/centos7-build-protobuf /opt /opt
 COPY --from=quay.io/sharpreflections/centos7-build-qt /p /p
+COPY --from=build-clazy    /opt /opt
