@@ -43,13 +43,14 @@ RUN yum -y upgrade \
 # we need some basic fonts and manpath for the mklvars.sh script
         urw-fonts \
         man \
-# clang, gcc and svn
+# clang, gcc, ninja and svn
         make \
         cmake3 \
         gcc-c++ \
         libatomic \
         libgomp \
         libomp-devel \
+        ninja-build \
 # Misc (developer) tools and xvfb for QTest
         strace \
         valgrind \
