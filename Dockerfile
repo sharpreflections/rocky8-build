@@ -18,6 +18,11 @@ FROM quay.io/sharpreflections/rocky8-build-base AS base
 FROM base AS builder
 
 RUN yum -y upgrade \
+# for installing ninja, epel-release and powertools are needed
+ && yum -y install epel-release \
+ && yum -y update \
+ && yum -y config-manager --set-enabled powertools \
+ && yum -y makecache \
  && yum -y install \
 # our build dependencies \
         xorg-x11-server-utils \
