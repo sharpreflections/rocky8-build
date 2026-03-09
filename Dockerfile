@@ -62,6 +62,7 @@ RUN yum -y upgrade \
         libXcomposite \
         wget \
         python3-pip \
+        iproute-tc \
 # For Squish
         tigervnc-server \
         nc \
