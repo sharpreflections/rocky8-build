@@ -83,7 +83,10 @@ RUN yum -y upgrade \
 # install numpy and scipy python packages
 # python3
 && pip3 install numpy \
-&& pip3 install scipy
+&& pip3 install scipy \
+# Install Conan v2.x
+&& pip3 install "conan>=2" \
+&& conan profile detect
 
 ###############################################################################
 # Final Image
