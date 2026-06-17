@@ -56,6 +56,8 @@ RUN yum -y upgrade \
         libgomp \
         libomp-devel \
         ninja-build \
+        clang \
+        llvm \
 # Misc (developer) tools and xvfb for QTest
         strace \
         valgrind \
