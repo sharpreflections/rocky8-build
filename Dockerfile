@@ -83,7 +83,6 @@ RUN yum -y upgrade \
         xorg-x11-server-Xvfb \
         libXcomposite \
         wget \
-        python3-pip \
         iproute-tc \
         clang-tools-extra \
 # For Squish
@@ -102,11 +101,11 @@ RUN yum -y upgrade \
 && make -j24 \
 && make altinstall \
 # install numpy and scipy python packages
-# python3
-&& pip3 install numpy \
-&& pip3 install scipy \
+&& python3 -m ensurepip --upgrade \
+&& python3 -m pip install numpy \
+&& python3 -m pip install scipy \
 # Install Conan v2.x
-&& pip3 install "conan>=2" \
+&& python3 -m pip install "conan>=2" \
 && conan profile detect
 
 ###############################################################################
