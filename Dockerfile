@@ -108,6 +108,15 @@ RUN yum -y upgrade \
 && python3 -m pip install "conan>=2" \
 && conan profile detect
 
+# add the mold linker, ver 3.0.0
+ARG mold_version=3.0.0
+ARG mold_sha256=6c90d4a474c7c0409dfb575be03a5345878ac14fdba18de8b40fa58c60121189
+RUN wget -q https://github.com/rui314/mold/releases/download/v${mold_version}/mold-${mold_version}-x86_64-linux.tar.gz \
+ && echo "${mold_sha256}  mold-${mold_version}-x86_64-linux.tar.gz" | sha256sum -c - \
+ && tar -xzf mold-${mold_version}-x86_64-linux.tar.gz -C /usr/local --strip-components=1 \
+ && rm mold-${mold_version}-x86_64-linux.tar.gz \
+ && mold --version
+
 ###############################################################################
 # Final Image
 ###############################################################################
