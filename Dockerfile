@@ -42,9 +42,32 @@ RUN yum -y upgrade \
         xorg-x11-server-utils \
         libX11-devel \
         libSM-devel \
+        libfontenc-devel \
+        libXaw-devel \
+        libXcomposite-devel \
+        libXcursor-devel \
+        libXdmcp-devel \
+        libXtst-devel \
+        libXinerama-devel \
+        libxkbfile-devel \
+        libXrandr-devel \
+        libXres-devel \
+        libXScrnSaver-devel \
+        xcb-util-wm-devel \
+        xcb-util-image-devel \
+        xcb-util-keysyms-devel \
+        xcb-util-renderutil-devel \
+        libXdamage-devel \
+        libXxf86vm-devel \
+        libXv-devel \
+        xcb-util-devel \
+        libuuid-devel \
+        xcb-util-cursor-devel \
         libxml2-devel \
         libGL-devel \
         libGLU-devel \
+        mesa-libEGL-devel \
+        xkeyboard-config-devel \
         libibverbs-devel \
         freetype-devel \
         which \
